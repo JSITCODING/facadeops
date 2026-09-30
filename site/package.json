@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "test": "npm run test:sites",
     "test:sites": "node --test tests/sites-worker.test.mjs",
-    "check": "npm run test:sites && npm run build"
+    "check": "npm run build && npm run test:sites"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.2.8",
