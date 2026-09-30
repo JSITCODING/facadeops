@@ -1,58 +1,51 @@
 # FacadeOps
 
-**Status:** Validation stage. FacadeOps is not yet operating, licensed, certified, or insured as a service provider.
+> A living exterior-condition record for property managers in Luanda.
 
-FacadeOps is a technology-assisted exterior building maintenance concept for property managers in Luanda. It combines structured site assessment, visual evidence captured through appropriately authorized operators, qualified technical interpretation, prioritized next actions, and a recurring digital maintenance record.
+**Validation stage** — FacadeOps is not yet operating, licensed, certified or insured as a service provider.
 
-The first offer is inspection and documentation. Cleaning, repair, and other field interventions remain partner-delivered services to evaluate only after the applicable operational, regulatory, safety, and insurance requirements are verified.
+![FacadeOps validation-stage concept site](site/qa/implementation-top.png)
 
-## Initial customer
+[Português](README.pt.md) · [Explore the synthetic condition record](docs/sample-inspection-report.md) · [Read the service blueprint](docs/service-blueprint.md)
 
-Property and facilities managers responsible for multi-storey residential, office, hospitality, or commercial buildings in Luanda who currently depend on reactive inspections, fragmented photos, contractor messages, or expensive access methods to understand exterior conditions.
+FacadeOps explores a more useful outcome than isolated building photos: a structured, evolving record that connects visual evidence, qualified interpretation, uncertainty and next actions. The first proposed offer is inspection documentation. Cleaning, repair and other field interventions remain partner-delivered possibilities to evaluate only after the relevant operational, regulatory, safety and insurance requirements are verified.
 
-## Initial workflow
+## What is included
 
-1. Confirm the decision the property manager needs to make.
-2. Review the property, access constraints, permissions, privacy boundaries, and available records.
-3. Create an inspection plan with an appropriately authorized drone operator and qualified technical partner where aerial capture is justified.
-4. Capture only the evidence required by the approved scope.
-5. Have a qualified person review and classify findings.
-6. Deliver an annotated condition record, limitations, and prioritized next actions.
-7. Add later inspections and completed work to the same building history.
+- A bilingual, responsive concept site with a working synthetic-record preview.
+- A service blueprint that separates property-manager, operator and qualified-review responsibilities.
+- A synthetic inspection record and minimum data contract.
+- Customer and specialist research guides, survey and 30-day validation plan.
+- A risk register and dated source register for publication and operational claims.
+- An editable cost and pricing model with clearly marked illustrative assumptions.
 
-## What FacadeOps does not claim
+## Run the concept site
 
-- It does not replace a structural, engineering, or statutory inspection.
-- A photograph is not itself a diagnosis.
-- A drone is one possible capture method, not the service.
-- No flight occurs without the required operator, aircraft, airspace, site, privacy, insurance, and safety checks.
-- No safety, cost, speed, or accuracy advantage will be advertised until measured against a defined alternative.
+Requirements: Node.js 20 or newer and npm.
 
-## Validation threshold
+```bash
+cd site
+npm ci
+npm run dev
+```
 
-Advance toward a limited pilot only after:
+Use `npm run check` for the same production build and hosting-contract tests run in continuous integration.
 
-- 10 property-manager interviews are completed;
-- at least six managers confirm the problem;
-- at least three request a proposal or site assessment;
-- one viable authorized drone-operation partner is verified;
-- one qualified technical inspection partner is verified; and
-- the insurance and permission path is documented for a specific pilot site.
+## Repository guide
 
-Portuguese: [README.pt.md](README.pt.md)
+| Area | Purpose |
+| --- | --- |
+| [`site/`](site/) | React/Vite bilingual concept site |
+| [`docs/sample-inspection-report.md`](docs/sample-inspection-report.md) | Synthetic deliverable example |
+| [`docs/service-blueprint.md`](docs/service-blueprint.md) | Proposed delivery flow and responsibilities |
+| [`docs/data-schema.md`](docs/data-schema.md) | Minimum digital-record contract |
+| [`docs/validation-plan.md`](docs/validation-plan.md) | Evidence gates for a limited pilot |
+| [`docs/risk-register.md`](docs/risk-register.md) | Safety, privacy and publication gates |
+| [`research/sources.md`](research/sources.md) | Dated source register |
+| [`artifacts/facadeops-pricing-model.xlsx`](artifacts/facadeops-pricing-model.xlsx) | Editable pricing model |
 
-## Workspace map
+## Claims and privacy boundary
 
-- `docs/service-blueprint.md` — delivery workflow and responsibilities
-- `docs/research-guides.md` — customer and expert interviews
-- `docs/survey.md` — bilingual validation survey
-- `docs/market-landscape.md` — current alternatives and positioning
-- `docs/risk-register.md` — operational and publication gates
-- `docs/sample-inspection-report.md` — synthetic deliverable example
-- `docs/data-schema.md` — minimum digital-record contract
-- `docs/landing-copy.md` — bilingual concept-site copy
-- `docs/portfolio-case-study.md` — evidence-first case-study structure
-- `docs/validation-plan.md` — 30-day validation sequence
-- `research/sources.md` — dated source register
-- `artifacts/facadeops-pricing-model.xlsx` — editable cost and pricing model
+This repository uses synthetic buildings, imagery and findings. It contains no customer addresses, contact data, credentials, flight plans or real inspection evidence. A photograph is not itself a diagnosis, and FacadeOps does not replace structural, engineering or statutory inspection.
 
+See [`LICENSE`](LICENSE) for code and content terms and [`site/public/assets/ASSETS.md`](site/public/assets/ASSETS.md) for visual-asset provenance.

@@ -1,43 +1,51 @@
 # FacadeOps
 
-**Estado:** Fase de validação. A FacadeOps ainda não opera nem se apresenta como prestador licenciado, certificado ou segurado.
+> Um registo vivo da condição exterior para gestores imobiliários em Luanda.
 
-A FacadeOps é um conceito de manutenção exterior de edifícios, apoiado por tecnologia, para gestores de imóveis em Luanda. Combina avaliação estruturada do local, evidência visual recolhida por operadores devidamente autorizados, interpretação por técnicos qualificados, próximos passos priorizados e um registo digital recorrente de manutenção.
+**Fase de validação** — A FacadeOps ainda não opera nem se apresenta como prestador licenciado, certificado ou segurado.
 
-A primeira oferta é inspecção e documentação. Limpeza, reparação e outras intervenções de campo serão avaliadas posteriormente e executadas por parceiros, apenas depois da verificação dos requisitos operacionais, regulamentares, de segurança e de seguro aplicáveis.
+![Site conceptual da FacadeOps em fase de validação](site/qa/implementation-top.png)
 
-## Cliente inicial
+[English](README.md) · [Explorar o registo sintético](docs/sample-inspection-report.md) · [Ler o blueprint do serviço](docs/service-blueprint.md)
 
-Gestores de imóveis e de instalações responsáveis por edifícios residenciais, escritórios, hotéis ou imóveis comerciais de vários pisos em Luanda, que actualmente dependem de inspecções reactivas, fotografias dispersas, mensagens de prestadores ou métodos de acesso dispendiosos para compreender o estado exterior do imóvel.
+A FacadeOps explora um resultado mais útil do que fotografias isoladas de edifícios: um registo estruturado e evolutivo que liga evidência visual, interpretação qualificada, incerteza e próximos passos. A primeira oferta proposta é documentação de inspeção. Limpeza, reparação e outras intervenções de campo continuam a ser possibilidades executadas por parceiros, a avaliar apenas depois de verificados os requisitos operacionais, regulamentares, de segurança e de seguro aplicáveis.
 
-## Fluxo inicial
+## O que está incluído
 
-1. Confirmar a decisão que o gestor precisa de tomar.
-2. Rever o imóvel, limitações de acesso, autorizações, privacidade e registos existentes.
-3. Criar um plano de inspecção com um operador de drones devidamente autorizado e um parceiro técnico qualificado, quando a captura aérea for justificada.
-4. Recolher apenas a evidência necessária para o âmbito aprovado.
-5. Submeter os achados à revisão e classificação de um profissional qualificado.
-6. Entregar um registo anotado do estado, limitações e próximos passos priorizados.
-7. Acrescentar futuras inspecções e trabalhos concluídos ao histórico do mesmo edifício.
+- Site conceptual bilingue e responsivo, com pré-visualização funcional de um registo sintético.
+- Blueprint do serviço que separa as responsabilidades do gestor, operador e revisor qualificado.
+- Registo sintético de inspeção e contrato mínimo de dados.
+- Guiões de pesquisa, inquérito e plano de validação de 30 dias.
+- Registo de riscos e fontes datadas para afirmações públicas e operacionais.
+- Modelo editável de custos e preços, com pressupostos ilustrativos claramente identificados.
 
-## O que a FacadeOps não afirma
+## Executar o site conceptual
 
-- Não substitui uma inspecção estrutural, de engenharia ou legalmente exigida.
-- Uma fotografia não constitui, por si só, um diagnóstico.
-- O drone é um possível método de captura, não o serviço em si.
-- Nenhum voo será realizado sem validação do operador, aeronave, espaço aéreo, local, privacidade, seguro e segurança.
-- Nenhuma vantagem de segurança, custo, velocidade ou precisão será divulgada antes de ser medida face a uma alternativa definida.
+Requisitos: Node.js 20 ou mais recente e npm.
 
-## Limite para avançar
+```bash
+cd site
+npm ci
+npm run dev
+```
 
-Avançar para um piloto limitado apenas depois de:
+Use `npm run check` para executar a compilação de produção e os testes do contrato de alojamento usados na integração contínua.
 
-- concluir 10 entrevistas com gestores de imóveis;
-- pelo menos seis gestores confirmarem o problema;
-- pelo menos três solicitarem uma proposta ou avaliação do local;
-- verificar um parceiro viável e autorizado para operação de drones;
-- verificar um parceiro técnico qualificado; e
-- documentar o seguro e as autorizações necessários para um local-piloto específico.
+## Guia do repositório
 
-Inglês: [README.md](README.md)
+| Área | Finalidade |
+| --- | --- |
+| [`site/`](site/) | Site conceptual bilingue em React/Vite |
+| [`docs/sample-inspection-report.md`](docs/sample-inspection-report.md) | Exemplo sintético do entregável |
+| [`docs/service-blueprint.md`](docs/service-blueprint.md) | Fluxo proposto e responsabilidades |
+| [`docs/data-schema.md`](docs/data-schema.md) | Contrato mínimo do registo digital |
+| [`docs/validation-plan.md`](docs/validation-plan.md) | Critérios para um piloto limitado |
+| [`docs/risk-register.md`](docs/risk-register.md) | Limites de segurança, privacidade e publicação |
+| [`research/sources.md`](research/sources.md) | Registo de fontes datadas |
+| [`artifacts/facadeops-pricing-model.xlsx`](artifacts/facadeops-pricing-model.xlsx) | Modelo editável de preços |
 
+## Limites de afirmações e privacidade
+
+Este repositório usa edifícios, imagens e achados sintéticos. Não contém moradas de clientes, contactos, credenciais, planos de voo ou evidência de inspeções reais. Uma fotografia não constitui, por si só, um diagnóstico, e a FacadeOps não substitui uma inspeção estrutural, de engenharia ou legalmente exigida.
+
+Consulte [`LICENSE`](LICENSE) para os termos do código e conteúdo e [`site/public/assets/ASSETS.md`](site/public/assets/ASSETS.md) para a proveniência dos recursos visuais.
