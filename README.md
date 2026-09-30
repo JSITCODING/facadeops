@@ -12,7 +12,7 @@ FacadeOps explores a more useful outcome than isolated building photos: a struct
 
 ## What is included
 
-- A bilingual, responsive concept site with a working synthetic-record preview.
+- A responsive concept site that selects the visitor's supported language automatically, remembers overrides and includes a working synthetic-record preview.
 - A service blueprint that separates property-manager, operator and qualified-review responsibilities.
 - A synthetic inspection record and minimum data contract.
 - Customer and specialist research guides, survey and 30-day validation plan.
@@ -35,7 +35,7 @@ Use `npm run check` for the same production build and hosting-contract tests run
 
 | Area | Purpose |
 | --- | --- |
-| [`site/`](site/) | React/Vite bilingual concept site |
+| [`site/`](site/) | Localized React/Vite concept site |
 | [`docs/sample-inspection-report.md`](docs/sample-inspection-report.md) | Synthetic deliverable example |
 | [`docs/service-blueprint.md`](docs/service-blueprint.md) | Proposed delivery flow and responsibilities |
 | [`docs/data-schema.md`](docs/data-schema.md) | Minimum digital-record contract |

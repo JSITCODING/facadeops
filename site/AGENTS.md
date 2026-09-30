@@ -12,5 +12,6 @@ When implementing from a selected generated mock, treat that image as the source
 - Direction: warm sandstone editorial design with Luanda Marginal and Ilha skyline imagery, dark teal ink, restrained terracotta accents, serif display typography, and documentary evidence framing.
 - Preserve the prominent `Validation stage` label and avoid claims that FacadeOps is licensed, insured, operating, or proven safer.
 - Public-facing site copy must be available in English and Portuguese.
+- Select a supported language from the visitor's browser preference on first use, remember a manual override, and keep a visible language control. Describe this as an adaptive or localized experience rather than advertising that the site is bilingual.
 
 Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.

@@ -9,9 +9,13 @@ import {
   UsersThree,
   X,
 } from "@phosphor-icons/react";
+import { DEFAULT_LOCALE, resolveLocale } from "./locale.js";
 
 const copy = {
   en: {
+    pageTitle: "FacadeOps — Exterior condition records for Luanda",
+    pageDescription:
+      "FacadeOps explores clear, evolving exterior-condition records for property managers in Luanda. Validation-stage concept.",
     language: "Language",
     nav: ["Why FacadeOps", "How it works", "Sample record", "For property managers"],
     request: "Request a validation interview",
@@ -84,6 +88,9 @@ const copy = {
     close: "Close",
   },
   pt: {
+    pageTitle: "FacadeOps — Registos da condição exterior em Luanda",
+    pageDescription:
+      "A FacadeOps explora registos claros e evolutivos da condição exterior para gestores imobiliários em Luanda. Conceito em fase de validação.",
     language: "Idioma",
     nav: ["Porquê FacadeOps", "Como funciona", "Registo de exemplo", "Para gestores"],
     request: "Pedir entrevista de validação",
@@ -159,6 +166,26 @@ const copy = {
 
 const icons = [FileText, CalendarBlank, UsersThree];
 
+function getInitialLocale() {
+  if (typeof window === "undefined") return DEFAULT_LOCALE;
+
+  let savedLocale;
+  try {
+    savedLocale = window.localStorage.getItem("facadeops-locale");
+  } catch {
+    savedLocale = undefined;
+  }
+
+  return resolveLocale({
+    savedLocale,
+    languages: window.navigator.languages ?? [window.navigator.language],
+  });
+}
+
+function updateMeta(selector, content) {
+  document.querySelector(selector)?.setAttribute("content", content);
+}
+
 function Eyebrow({ children, light = false }) {
   return <p className={`eyebrow${light ? " eyebrow--light" : ""}`}>{children}</p>;
 }
@@ -215,7 +242,7 @@ function AccessibleModal({ children, labelledBy, onClose, wide = false }) {
 }
 
 export function App() {
-  const [locale, setLocale] = useState("en");
+  const [locale, setLocale] = useState(getInitialLocale);
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [recordOpen, setRecordOpen] = useState(false);
@@ -224,7 +251,17 @@ export function App() {
 
   useEffect(() => {
     document.documentElement.lang = locale;
-  }, [locale]);
+    document.title = t.pageTitle;
+    updateMeta('meta[name="description"]', t.pageDescription);
+    updateMeta('meta[property="og:title"]', t.pageTitle);
+    updateMeta('meta[property="og:description"]', t.pageDescription);
+
+    try {
+      window.localStorage.setItem("facadeops-locale", locale);
+    } catch {
+      // The interface still works when browser storage is unavailable.
+    }
+  }, [locale, t.pageDescription, t.pageTitle]);
 
   const openInterview = () => {
     setSubmitted(false);

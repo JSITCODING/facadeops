@@ -12,7 +12,7 @@ A FacadeOps explora um resultado mais útil do que fotografias isoladas de edif�
 
 ## O que está incluído
 
-- Site conceptual bilingue e responsivo, com pré-visualização funcional de um registo sintético.
+- Site conceptual responsivo que seleciona automaticamente um idioma suportado, memoriza alterações e inclui a pré-visualização funcional de um registo sintético.
 - Blueprint do serviço que separa as responsabilidades do gestor, operador e revisor qualificado.
 - Registo sintético de inspeção e contrato mínimo de dados.
 - Guiões de pesquisa, inquérito e plano de validação de 30 dias.
@@ -35,7 +35,7 @@ Use `npm run check` para executar a compilação de produção e os testes do co
 
 | Área | Finalidade |
 | --- | --- |
-| [`site/`](site/) | Site conceptual bilingue em React/Vite |
+| [`site/`](site/) | Site conceptual localizado em React/Vite |
 | [`docs/sample-inspection-report.md`](docs/sample-inspection-report.md) | Exemplo sintético do entregável |
 | [`docs/service-blueprint.md`](docs/service-blueprint.md) | Fluxo proposto e responsabilidades |
 | [`docs/data-schema.md`](docs/data-schema.md) | Contrato mínimo do registo digital |
