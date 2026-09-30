@@ -1,0 +1,20 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+.vite/
+coverage/
+
+# Private validation data and field evidence stay outside Git.
+private/
+research/responses/
+research/contacts/
+research/interviews/raw/
+evidence/
+customer-data/
+credentials/
+licenses/
+insurance/
+
