@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   CalendarBlank,
@@ -21,6 +21,23 @@ const copy = {
     heroBody:
       "FacadeOps is exploring how property managers in Luanda can keep a clear, evolving record of exterior condition—so maintenance decisions are grounded in evidence, not guesswork.",
     explore: "Explore a sample record",
+    sampleTitle: "Synthetic condition record",
+    sampleIntro:
+      "A compact example of how observations, uncertainty and next actions could stay connected over time.",
+    sampleMeta: [
+      ["Record", "DEMO-2026-001"],
+      ["Property", "Synthetic commercial building, Luanda"],
+      ["Observation date", "27 September 2026"],
+      ["Status", "Validation sample"],
+    ],
+    sampleFindingsTitle: "Illustrative findings",
+    sampleFindings: [
+      ["FND-001", "Localized render cracking", "Qualified review to decide whether measurement or dated monitoring is appropriate."],
+      ["FND-002", "Sealant appearance change", "Include a representative close-access review in the next qualified assessment."],
+      ["FND-003", "Surface staining", "Review the drainage path and compare dated observations before specifying treatment."],
+    ],
+    sampleLimit:
+      "Demonstration only. This is not a real building, inspection, diagnosis, quotation or engineering report.",
     processEyebrow: "How it works",
     processTitle: "From inspection to action, with a clear record.",
     processIntro:
@@ -57,7 +74,7 @@ const copy = {
     footerMeta: "Luanda, Angola · Validation stage",
     formTitle: "Validation interview",
     formBody:
-      "Share only what you are comfortable sharing. This form prepares a conversation; it does not book an inspection or create a service agreement.",
+      "This prototype does not transmit or store entries. Use the fields only to preview how a future validation request could work.",
     name: "Name",
     role: "Role or organization",
     contact: "Email or phone",
@@ -76,6 +93,23 @@ const copy = {
     heroBody:
       "A FacadeOps está a explorar como gestores imobiliários em Luanda podem manter um registo claro e evolutivo do exterior dos edifícios—para apoiar decisões com evidência, não suposições.",
     explore: "Ver um registo de exemplo",
+    sampleTitle: "Registo sintético de condição",
+    sampleIntro:
+      "Um exemplo compacto de como observações, incerteza e próximos passos podem permanecer ligados ao longo do tempo.",
+    sampleMeta: [
+      ["Registo", "DEMO-2026-001"],
+      ["Imóvel", "Edifício comercial sintético, Luanda"],
+      ["Data da observação", "27 de setembro de 2026"],
+      ["Estado", "Amostra de validação"],
+    ],
+    sampleFindingsTitle: "Achados ilustrativos",
+    sampleFindings: [
+      ["FND-001", "Fissuração localizada no reboco", "Revisão qualificada para decidir se é adequada medição ou monitorização datada."],
+      ["FND-002", "Alteração no aspeto do selante", "Incluir uma revisão representativa de proximidade na próxima avaliação qualificada."],
+      ["FND-003", "Mancha superficial", "Rever o percurso de drenagem e comparar observações datadas antes de especificar tratamento."],
+    ],
+    sampleLimit:
+      "Apenas para demonstração. Não representa um edifício real, inspeção, diagnóstico, orçamento ou relatório de engenharia.",
     processEyebrow: "Como funciona",
     processTitle: "Da inspeção à ação, com um registo claro.",
     processIntro:
@@ -112,7 +146,7 @@ const copy = {
     footerMeta: "Luanda, Angola · Fase de validação",
     formTitle: "Entrevista de validação",
     formBody:
-      "Partilhe apenas o que considerar confortável. Este formulário prepara uma conversa; não marca uma inspeção nem cria um contrato de serviço.",
+      "Este protótipo não transmite nem guarda dados. Use os campos apenas para visualizar como poderia funcionar um futuro pedido de validação.",
     name: "Nome",
     role: "Função ou organização",
     contact: "Email ou telefone",
@@ -129,16 +163,77 @@ function Eyebrow({ children, light = false }) {
   return <p className={`eyebrow${light ? " eyebrow--light" : ""}`}>{children}</p>;
 }
 
+function AccessibleModal({ children, labelledBy, onClose, wide = false }) {
+  const modalRef = useRef(null);
+  const returnFocusRef = useRef(null);
+
+  useEffect(() => {
+    returnFocusRef.current = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusableSelector =
+      'a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const focusable = () => [...modalRef.current.querySelectorAll(focusableSelector)];
+    focusable()[0]?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      returnFocusRef.current?.focus();
+    };
+  }, [onClose]);
+
+  return (
+    <div className="modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && onClose()}>
+      <section ref={modalRef} className={`modal${wide ? " modal--wide" : ""}`} role="dialog" aria-modal="true" aria-labelledby={labelledBy}>
+        {children}
+      </section>
+    </div>
+  );
+}
+
 export function App() {
   const [locale, setLocale] = useState("en");
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [recordOpen, setRecordOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const t = useMemo(() => copy[locale], [locale]);
+
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const openInterview = () => {
     setSubmitted(false);
     setModalOpen(true);
+    setMenuOpen(false);
+  };
+
+  const openRecord = () => {
+    setRecordOpen(true);
     setMenuOpen(false);
   };
 
@@ -153,15 +248,15 @@ export function App() {
           {menuOpen ? <X size={24} /> : <List size={24} />}
         </button>
         <nav className={menuOpen ? "nav nav--open" : "nav"} aria-label="Primary navigation">
-          <a href="#why">{t.nav[0]}</a>
-          <a href="#process">{t.nav[1]}</a>
-          <a href="#record">{t.nav[2]}</a>
-          <a href="#managers">{t.nav[3]}</a>
+          <a href="#why" onClick={() => setMenuOpen(false)}>{t.nav[0]}</a>
+          <a href="#process" onClick={() => setMenuOpen(false)}>{t.nav[1]}</a>
+          <a href="#record" onClick={() => setMenuOpen(false)}>{t.nav[2]}</a>
+          <a href="#managers" onClick={() => setMenuOpen(false)}>{t.nav[3]}</a>
         </nav>
         <div className="header-actions">
           <div className="language-switch" aria-label={t.language}>
-            <button className={locale === "en" ? "is-active" : ""} onClick={() => setLocale("en")} type="button">EN</button>
-            <button className={locale === "pt" ? "is-active" : ""} onClick={() => setLocale("pt")} type="button">PT</button>
+            <button className={locale === "en" ? "is-active" : ""} aria-pressed={locale === "en"} onClick={() => setLocale("en")} type="button">EN</button>
+            <button className={locale === "pt" ? "is-active" : ""} aria-pressed={locale === "pt"} onClick={() => setLocale("pt")} type="button">PT</button>
           </div>
           <button className="button button--ink header-cta" type="button" onClick={openInterview}>{t.request}</button>
         </div>
@@ -177,7 +272,7 @@ export function App() {
             <p className="hero-body">{t.heroBody}</p>
             <div className="button-row">
               <button className="button button--terracotta" type="button" onClick={openInterview}>{t.request}<ArrowRight size={18} /></button>
-              <a className="text-link" href="#record">{t.explore}<ArrowRight size={18} /></a>
+              <button className="text-link text-link--button" type="button" onClick={openRecord}>{t.explore}<ArrowRight size={18} /></button>
             </div>
           </div>
           <p className="hero-note">Same buildings.<br />A brighter tomorrow.<br />Luanda.</p>
@@ -200,7 +295,7 @@ export function App() {
             <Eyebrow>{t.evidenceEyebrow}</Eyebrow>
             <h2>{t.evidenceTitle}</h2>
             <p>{t.evidenceBody}</p>
-            <a className="text-link" href="#record">{t.explore}<ArrowRight size={18} /></a>
+            <button className="text-link text-link--button" type="button" onClick={openRecord}>{t.explore}<ArrowRight size={18} /></button>
           </div>
           <div className="evidence-image">
             <img src="/assets/facade-detail-sandstone.png" alt="Illustrative close-up of a sandstone facade and balcony" />
@@ -234,7 +329,7 @@ export function App() {
             <p>{t.nextBody}</p>
             <div className="button-row">
               <button className="button button--terracotta" type="button" onClick={openInterview}>{t.request}<ArrowRight size={18} /></button>
-              <a className="text-link text-link--light" href="#record">{t.explore}<ArrowRight size={18} /></a>
+              <button className="text-link text-link--button text-link--light" type="button" onClick={openRecord}>{t.explore}<ArrowRight size={18} /></button>
             </div>
           </div>
         </section>
@@ -247,9 +342,36 @@ export function App() {
         <small>© 2026 FacadeOps. {t.validation}.</small>
       </footer>
 
+      {recordOpen && (
+        <AccessibleModal labelledBy="record-title" onClose={() => setRecordOpen(false)} wide>
+          <button className="modal-close" type="button" onClick={() => setRecordOpen(false)} aria-label={t.close}><X size={22} /></button>
+          <Eyebrow>{t.validation}</Eyebrow>
+          <div className="record-heading">
+            <div>
+              <h2 id="record-title">{t.sampleTitle}</h2>
+              <p>{t.sampleIntro}</p>
+            </div>
+            <span className="record-badge">Synthetic / Sintético</span>
+          </div>
+          <dl className="record-meta">
+            {t.sampleMeta.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+          </dl>
+          <h3 className="record-subtitle">{t.sampleFindingsTitle}</h3>
+          <div className="record-findings">
+            {t.sampleFindings.map(([id, title, action]) => (
+              <article key={id}>
+                <span>{id}</span>
+                <h3>{title}</h3>
+                <p>{action}</p>
+              </article>
+            ))}
+          </div>
+          <p className="record-limit">{t.sampleLimit}</p>
+        </AccessibleModal>
+      )}
+
       {modalOpen && (
-        <div className="modal-backdrop" role="presentation" onMouseDown={(event) => event.target === event.currentTarget && setModalOpen(false)}>
-          <section className="modal" role="dialog" aria-modal="true" aria-labelledby="interview-title">
+        <AccessibleModal labelledBy="interview-title" onClose={() => setModalOpen(false)}>
             <button className="modal-close" type="button" onClick={() => setModalOpen(false)} aria-label={t.close}><X size={22} /></button>
             <Eyebrow>{t.validation}</Eyebrow>
             <h2 id="interview-title">{t.formTitle}</h2>
@@ -265,8 +387,7 @@ export function App() {
                 <button className="button button--terracotta" type="submit">{t.send}<ArrowRight size={18} /></button>
               </form>
             )}
-          </section>
-        </div>
+        </AccessibleModal>
       )}
     </div>
   );

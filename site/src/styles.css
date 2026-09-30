@@ -198,6 +198,14 @@ h3,
   font-weight: 800;
 }
 
+.text-link--button {
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  background: transparent;
+  color: inherit;
+}
+
 .text-link--light {
   color: white;
 }
@@ -587,6 +595,10 @@ h3,
   box-shadow: 0 26px 80px rgba(4, 20, 22, 0.3);
 }
 
+.modal--wide {
+  width: min(920px, 100%);
+}
+
 .modal-close {
   position: absolute;
   top: 18px;
@@ -603,6 +615,108 @@ h3,
 .modal > p {
   color: var(--muted);
   line-height: 1.6;
+}
+
+.record-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.record-heading h2 {
+  margin-bottom: 16px;
+}
+
+.record-heading p {
+  max-width: 620px;
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.record-badge {
+  flex: 0 0 auto;
+  padding: 8px 11px;
+  border: 1px solid var(--terracotta);
+  color: var(--terracotta);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.record-meta {
+  margin: 32px 0 38px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.record-meta > div {
+  padding: 18px 16px 18px 0;
+}
+
+.record-meta dt {
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.record-meta dd {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.record-subtitle {
+  margin-bottom: 18px;
+  font-size: 25px;
+}
+
+.record-findings {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.record-findings article {
+  padding: 20px;
+  border: 1px solid var(--line);
+  background: #fbf7f0;
+}
+
+.record-findings article > span {
+  color: var(--terracotta);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.record-findings h3 {
+  margin: 12px 0 10px;
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.record-findings p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.record-limit {
+  margin: 20px 0 0;
+  padding: 16px 18px;
+  border-left: 3px solid var(--terracotta);
+  background: #f1e6d6;
+  color: #394846;
+  font-size: 12px;
 }
 
 .modal form {
@@ -837,6 +951,24 @@ h3,
 
   .modal {
     padding: 42px 22px 24px;
+  }
+
+  .record-heading {
+    display: grid;
+    gap: 18px;
+  }
+
+  .record-badge {
+    width: fit-content;
+  }
+
+  .record-meta,
+  .record-findings {
+    grid-template-columns: 1fr;
+  }
+
+  .record-meta > div + div {
+    border-top: 1px solid rgba(16, 40, 44, 0.1);
   }
 }
 

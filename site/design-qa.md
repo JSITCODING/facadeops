@@ -32,13 +32,14 @@
 - Desktop focused captures verified the hero, process, evidence annotations, benefits, closing panorama, and footer.
 - Mobile capture verified the responsive image-first hero and readable content stack without horizontal overflow.
 
-## Remaining verification blocker
+## Interaction verification
 
-The browser connection became unavailable after the rendered captures were completed but before the language switch, validation-interview modal, form success state, and browser console could be checked in the same final session. Production build and four hosting-contract tests pass, but build success does not replace interaction and console verification.
+- English and Portuguese switches update the visible copy and the document language.
+- The synthetic record opens from every primary record call to action in both languages.
+- Record and interview dialogs keep keyboard focus inside the dialog, close with Escape, and restore focus to the trigger.
+- The validation form states before entry that it does not transmit or store data; its local-only success state was verified.
+- Mobile navigation and the record dialog were checked at 390 × 844 CSS pixels without horizontal overflow.
+- The final browser console contained no warnings or errors.
+- Production build, four hosting-contract tests, and the dependency audit pass.
 
-## Follow-up polish
-
-- Recheck the PT switch, mobile navigation, modal focus behavior, local-only success state, and console once the in-app browser is available.
-- Consider adding a dedicated Portuguese QA capture after that pass.
-
-final result: blocked
+final result: pass
